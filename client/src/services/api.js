@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: '/api'
+  baseURL: 'https://moualay-abdellah-production-d351.up.railway.app/api'
 });
 
 api.interceptors.response.use(
@@ -10,6 +10,7 @@ api.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
+
       if (window.location.pathname.startsWith('/admin')) {
         window.location.href = '/login';
       }
