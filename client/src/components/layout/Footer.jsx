@@ -1,9 +1,15 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useSettings } from '../../contexts/SettingsContext';
 import { FaFacebook, FaTwitter, FaYoutube } from 'react-icons/fa';
 
 const Footer = () => {
-  const { t } = useLanguage();
+  const { t, isArabic } = useLanguage();
+  const { settings } = useSettings();
+  
+  const siteTitle = isArabic ? settings?.site_title_ar : settings?.site_title_en;
+  const siteDesc = isArabic ? settings?.site_desc_ar : settings?.site_desc_en;
+  
   return (
     <footer className="bg-primary-900 text-white pt-12 pb-8 border-t-4 border-gold-500">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -11,8 +17,8 @@ const Footer = () => {
           
           {/* About Column */}
           <div>
-            <h3 className="text-2xl text-gold-400 mb-4">{t('hero.title') || 'Moussem Moulay Abdellah Amghar'}</h3>
-            <p className="text-gray-400 mb-6">{t('footer.description') || 'Moussem Moulay Abdellah Amghar - The Biggest Traditional Equestrian & Tbourida Festival in Morocco'}</p>
+            <h3 className="text-2xl text-gold-400 mb-4">{siteTitle || t('hero.title') || 'Moussem Moulay Abdellah Amghar'}</h3>
+            <p className="text-gray-400 mb-6">{siteDesc || t('footer.description') || 'Moussem Moulay Abdellah Amghar - The Biggest Traditional Equestrian & Tbourida Festival in Morocco'}</p>
           </div>
 
           {/* Quick Links Column */}
@@ -36,11 +42,11 @@ const Footer = () => {
             <ul className="space-y-3 text-gray-400">
               <li className="flex items-center gap-3">
                 <span className="text-gold-400">&#9742;</span>
-                <a href="tel:0697936897" className="hover:text-white transition-colors">0697936897</a>
+                <a href={`tel:${settings?.contact_phone || '0697936897'}`} className="hover:text-white transition-colors">{settings?.contact_phone || '0697936897'}</a>
               </li>
               <li className="flex items-center gap-3">
                 <span className="text-gold-400">&#9993;</span>
-                <a href="mailto:mohamedamineaitsalah02@gmail.com" className="hover:text-white transition-colors">mohamedamineaitsalah02@gmail.com</a>
+                <a href={`mailto:${settings?.contact_email || 'mohamedamineaitsalah02@gmail.com'}`} className="hover:text-white transition-colors">{settings?.contact_email || 'mohamedamineaitsalah02@gmail.com'}</a>
               </li>
               <li className="flex gap-4 mt-4">
                 <a href="#" className="w-10 h-10 rounded-full bg-primary-800 flex items-center justify-center text-white hover:bg-gold-500 hover:text-primary-900 transition-all" title="Facebook">

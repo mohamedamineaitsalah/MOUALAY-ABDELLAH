@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import AnimatedCounter from '../../components/common/AnimatedCounter';
 
 const About = () => {
   const { t, isArabic } = useLanguage();
@@ -48,7 +49,9 @@ const About = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-20">
           {facts.map((fact, index) => (
             <div key={index} className="bg-white p-8 rounded-2xl shadow-md text-center border border-gray-100 hover:shadow-lg transition-shadow">
-              <div className="text-4xl md:text-5xl font-bold text-gold-500 mb-2">{fact.number}</div>
+              <div className="text-4xl md:text-5xl font-bold text-gold-500 mb-2">
+                <AnimatedCounter value={fact.number} />
+              </div>
               <div className="text-gray-600 font-medium">{fact.label}</div>
             </div>
           ))}

@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { AuthProvider } from './contexts/AuthContext';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { SettingsProvider } from './contexts/SettingsContext';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
@@ -14,10 +15,12 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <BrowserRouter>
       <ErrorBoundary>
         <LanguageProvider>
-          <AuthProvider>
-            <App />
-            <ToastContainer position="top-right" autoClose={3000} />
-          </AuthProvider>
+          <SettingsProvider>
+            <AuthProvider>
+              <App />
+              <ToastContainer position="top-right" autoClose={3000} />
+            </AuthProvider>
+          </SettingsProvider>
         </LanguageProvider>
       </ErrorBoundary>
     </BrowserRouter>

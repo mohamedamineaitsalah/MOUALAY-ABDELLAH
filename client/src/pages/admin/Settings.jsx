@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useSettings } from '../../contexts/SettingsContext';
 import { settingsService, countdownService } from '../../services/services';
 import LoadingSpinner from '../../components/common/LoadingSpinner';
 import { toast } from 'react-toastify';
@@ -7,6 +8,7 @@ import { FaGlobe, FaEnvelope, FaPhone, FaMapMarkerAlt, FaClock, FaSave, FaSlider
 
 const Settings = () => {
   const { t } = useLanguage();
+  const { refreshSettings } = useSettings();
   const [activeTab, setActiveTab] = useState('general');
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
@@ -71,6 +73,7 @@ const Settings = () => {
       const res = await settingsService.update(settingsData);
       if (res.data.success) {
         toast.success('Site settings updated successfully');
+        refreshSettings();
       }
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to update settings');
